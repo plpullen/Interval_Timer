@@ -1,40 +1,34 @@
-let element = document.getElementById("timer");
-let start = document.getElementById("start")
-let stop = document.getElementById("stop")
-let tracker = 0
+//have timer running when page loads
+//start timer with start button
+//stop timer with stop button
+//make timer count a specific amount of time
+//make timer count the inputted amount of time
+//make timer count the amount of time in a loop
+//make timer loop a certain amount of times
+//make program record number of intervals
+//make program to stop with completion of certain number of intervals too
+//use previous timer to make rest timer that runs between each interval timer
 
-start.onclick = ()=>{
-    let length = document.getElementById("length").value;
-    let goal = document.getElementById("goal")
+let startButton = document.getElementById("start")
+let stopButton = document.getElementById("stop")
+let visTimer = document.getElementById("timer")
+let counter = 0
+let startVar
 
-    setInterval(function(){
-    element.innerHTML = '00:'+length;
-    length--
-
-    if (length < 1) {
-    length = document.getElementById("length").value;
+function myCounter(){
+    counter++
+    visTimer.innerText = counter
     }
-    tracker++
 
-    if (tracker=goal){
-        clearInterval(counter)
-    }
-    }, 1000)
+function startTimer(){
+    startVar = setInterval(myCounter, 1000)
+}
+
+function stopTimer(){
+clearInterval(startVar)
 }
 
 
-// stop.onclick = ()=>{
-//     clearInterval(myInterval)
-// }
 
-
-
-// function timer(){
-//     var sec = 30;
-//     var timer = setInterval(function(){
-//         document.getElementById('safeTimerDisplay').innerHTML='00:'+sec;
-//         sec--;
-//         if (sec < 0) {
-//             clearInterval(timer);
-//         }
-//     }, 1000);
+startButton.addEventListener("click", startTimer)
+stopButton.addEventListener("click", stopTimer)
