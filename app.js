@@ -16,40 +16,61 @@
 let startButton = document.getElementById("start")
 let stopButton = document.getElementById("stop")
 let resetButton = document.getElementById("reset")
+
+//regular interval variables
 let intTimer = document.getElementById("timer")
 let totInts = document.getElementById("completedIntervals")
-let counter = 0
+let timeCount = 0
 let startVar
-let length
+let intLength
 let audioOne = new Audio('edited_pop.mp3')
 let audioTwo = new Audio('long_pop.mp3')
-let qty
-let qtyCount = 0
+let intQty
+let intQtyCount = 0
+
+//rest interval variables
+let restTimer = document.getElementById("restTimer")
+let restCount = 0
+let restLength
+let restStartVar
+
 
 function restCounter(){
-
-}
-
-function myCounter(){
-    qty = document.getElementById("qty").value
-    length = document.getElementById("length").value
-    if (qtyCount < qty){
-        if (counter < length-1){
-        counter++;
-        intTimer.innerText = counter;
+    restLength = document.getElementById("restLength").value
+        if (restCount < restLength -1){
+        restCount++;
+        restTimer.innerText = restCount;
         audioOne.play();
         } else {
         audioTwo.play();
-        counter++;
-        intTimer.innerText = counter;
-        counter = 0
-        totInts.innerText = ++qtyCount
-        restCounter()
+        restCount++;
+        restTimer.innerText = restCount;
+        restCount = 0
+        clearInterval(restStartVar)
+       }
+    }
+
+function myCounter(){
+    intQty = document.getElementById("qty").value
+    intLength = document.getElementById("length").value
+    if (intQtyCount < intQty){
+        if (timeCount < intLength -1){
+        timeCount++;
+        intTimer.innerText = timeCount;
+        audioOne.play();
+        } else {
+        audioTwo.play();
+        timeCount++;
+        intTimer.innerText = timeCount;
+        timeCount = 0
+        totInts.innerText = ++intQtyCount
+        restStartVar = setInterval(restCounter,1000)
+        //how do I force the loop to wait till the restCounter is finished before looping again?
         }
     } else {
         stopTimer()
-        counter = 0
-        qtyCount = 0
+        timeCount = 0
+        intQtyCount = 0
     }
 }
 
@@ -62,9 +83,9 @@ clearInterval(startVar)
 }
 
 function resetOutputs(){
-    qtyCount = 0
+    intQtyCount = 0
     totInts.innerText = 0
-    counter = 0
+    timeCount = 0
     intTimer.innerText = 0;
 }
 
