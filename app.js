@@ -27,6 +27,7 @@ let audioOne = new Audio('edited_pop.mp3')
 let audioTwo = new Audio('long_pop.mp3')
 let intQty
 let intQtyCount = 0
+let totalIntLength
 
 //rest interval variables
 let restTimer = document.getElementById("restTimer")
@@ -43,30 +44,47 @@ function restCounter(){
         audioOne.play();
         } else {
         audioTwo.play();
-        restCount++;
-        restTimer.innerText = restCount;
         restCount = 0
-        clearInterval(restStartVar)
+        restTimer.innerText = restCount;
        }
-    }
+    } 
 
 function myCounter(){
     intQty = document.getElementById("qty").value
-    intLength = document.getElementById("length").value
+    intLength = Number(document.getElementById("length").value)
+    restIntLength = Number(document.getElementById("restLength").value)
+    totalIntLength = intLength + restIntLength
+
     if (intQtyCount < intQty){
+
         if (timeCount < intLength -1){
         timeCount++;
         intTimer.innerText = timeCount;
+        restTimer.innerText = restCount; //this resets rest timer a this moment to display zero in a correct visual way
         audioOne.play();
-        } else {
+        } else if (timeCount == intLength -1){
         audioTwo.play();
         timeCount++;
         intTimer.innerText = timeCount;
-        timeCount = 0
-        totInts.innerText = ++intQtyCount
-        restStartVar = setInterval(restCounter,1000)
-        //how do I force the loop to wait till the restCounter is finished before looping again?
+        } else if (timeCount < totalIntLength-1){
+            restCount++;
+            timeCount++
+            restTimer.innerText = restCount;
+            audioOne.play();
+        } else if (timeCount == totalIntLength-1){
+            audioTwo.play();
+            restCount++
+            restTimer.innerText = restCount;
+            restCount = 0
+            timeCount = 0
+            totInts.innerText = ++intQtyCount
+        } else {
+            console.log("error")
         }
+
+
+        //how do I force the loop to wait till the restCounter is finished before looping again? 
+        //Promises? Force Synchronicity? I think i can do it with simple math too.
     } else {
         stopTimer()
         timeCount = 0
@@ -87,6 +105,9 @@ function resetOutputs(){
     totInts.innerText = 0
     timeCount = 0
     intTimer.innerText = 0;
+    restCount = 0
+    restTimer.innerText = 0;
+
 }
 
 
