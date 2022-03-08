@@ -1,6 +1,13 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* why didn't tailwind set up correctly? */
+
 body {
     background-color: black;
     color: #ff7c7c;
+    display: flex;
 }
 
 input {
@@ -9,4 +16,14 @@ input {
 
 select, button {
     background-color: #bb4646;
+}
+
+#timerBody {
+    display: inline-block;
+    background-color: aquamarine;
+    padding: 20px;
+    border-radius: 1rem;
+    justify-content: center;
+    align-items: center;
+    
 }

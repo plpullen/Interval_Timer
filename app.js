@@ -10,7 +10,7 @@
 //-make program to stop automatically with completion of certain number of loops 
 //-make reset button to return outputs to '0'
 //-use previous timer to make rest timer that runs between each interval timer
-//-enable selection of seconds or minutes
+//enable selection of seconds or minutes
 //enable interval and rest lengths to be mixed sec/min
 //enable timer to visibly display passing seconds even when units are minutes
 //make it look pretty
@@ -46,9 +46,13 @@ function myCounter(){
     intLength = Number(document.getElementById("length").value) //use ternary operator to determine impact of units here? (sec?value:value x 60)
     restIntLength = Number(document.getElementById("restLength").value)
     totalIntLength = intLength + restIntLength
+    intUnit = document.getElementById("intUnit").value
+    // if(intUnit == "min"){ //this produces an error after running the first loop
+    //     intLength*= 60
+    //     totalIntLength*= 60
+    // }else {intLength = intLength; totalIntLength = totalIntLength}
 //should I pull out the timing functionality for what is displayed and have it run asynchonously from what is tracking intervals?
     if (intQtyCount < intQty){
-
         if (timeCount < intLength -1){
         timeCount++;
         intTimer.innerText = timeCount;
@@ -80,18 +84,16 @@ function myCounter(){
     } else {
         stopTimer()
         timeCount = 0
+        intTimer.innerText = timeCount;
+        restCount = 0
+        restTimer.innerText = restCount;
         intQtyCount = 0
     }
 }
 
 function startTimer(){
-    intUnit = document.getElementById("intUnit").value
     // restUnit = document.getElementById("restUnit").value
-    if(intUnit == "min"){ //this produces an error after running the first loop
-        speed = 60000
-    }else {speed = 1000}
-console.log(speed)
-    startVar = setInterval(myCounter, speed)
+    startVar = setInterval(myCounter, 1000)
 }
 
 function stopTimer(){
@@ -105,7 +107,6 @@ function resetOutputs(){
     intTimer.innerText = 0;
     restCount = 0
     restTimer.innerText = 0;
-
 }
 
 
