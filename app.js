@@ -46,7 +46,7 @@ function myCounter(){
     intLength = Number(document.getElementById("length").value) //use ternary operator to determine impact of units here? (sec?value:value x 60)
     restIntLength = Number(document.getElementById("restLength").value)
     totalIntLength = intLength + restIntLength
-    intUnit = document.getElementById("intUnit").value
+    // intUnit = document.getElementById("intUnit").value
     // if(intUnit == "min"){ //this produces an error after running the first loop
     //     intLength*= 60
     //     totalIntLength*= 60
